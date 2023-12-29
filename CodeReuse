@@ -1,0 +1,67 @@
+import java.util.Arrays;
+package myproject;
+public class CodeReuse {
+
+    public int[] sortDescending(int[] array) {
+        int[] sortedArray = Arrays.copyOf(array, array.length);
+        Arrays.sort(sortedArray);
+        for (int i = 0; i < sortedArray.length / 2; i++) {
+            int temp = sortedArray[i];
+            sortedArray[i] = sortedArray[sortedArray.length - i - 1];
+            sortedArray[sortedArray.length - i - 1] = temp;
+        }
+        return sortedArray;
+    }
+
+    public double[] calculateStatistics(int[] array) {
+        double median = calculateMedian(array);
+        double variance = calculateVariance(array, median);
+        double stdDeviation = Math.sqrt(variance);
+        double sumOfSquares = calculateSumOfSquares(array);
+        return new double[]{median, variance, stdDeviation, sumOfSquares};
+    }
+
+    private double calculateMedian(int[] array) {
+        int[] sortedArray = sortDescending(array);
+        int middle = sortedArray.length / 2;
+        if (sortedArray.length % 2 == 0) {
+            return (sortedArray[middle - 1] + sortedArray[middle]) / 2.0;
+        } else {
+            return sortedArray[middle];
+        }
+    }
+
+    private double calculateVariance(int[] array, double mean) {
+        double sum = 0;
+        for (int num : array) {
+            sum += Math.pow(num - mean, 2);
+        }
+        return sum / array.length;
+    }
+
+    private double calculateSumOfSquares(int[] array) {
+        double sum = 0;
+        for (int num : array) {
+            sum += Math.pow(num, 2);
+        }
+        return sum;
+    }
+
+    public int[][] matrixMultiplication(int[][] matrixA, int[][] matrixB, int rowsA, int columnsA, int columnsB) {
+        int[][] resultMatrix = new int[rowsA][columnsB];
+        for (int i = 0; i < rowsA; i++) {
+            for (int j = 0; j < columnsB; j++) {
+                for (int k = 0; k < columnsA; k++) {
+                    resultMatrix[i][j] += matrixA[i][k] * matrixB[k][j];
+                }
+            }
+        }
+        return resultMatrix;
+    }
+
+    public void printMatrix(int[][] matrix) {
+        for (int[] row : matrix) {
+            System.out.println(Arrays.toString(row));
+        }
+    }
+}

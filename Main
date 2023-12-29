@@ -1,0 +1,27 @@
+package myproject;
+public class MainClass {
+
+    public static void main(String[] args) {
+        CodeReuse codeReuse = new CodeReuse();
+
+        int[] array = {5, 2, 8, 1, 6, 3};
+        double[] statistics = codeReuse.calculateStatistics(array);
+        System.out.println("Sorted Array in Descending Order: " +
+                Arrays.toString(codeReuse.sortDescending(array)));
+        System.out.println("Statistics: Median=" + statistics[0] + ", Variance=" + statistics[1] +
+                ", Standard Deviation=" + statistics[2] + ", Sum of Squares=" + statistics[3]);
+
+        int[][] matrixA = {
+                {1, 2, 3},
+                {4, 5, 6}
+        };
+        int[][] matrixB = {
+                {7, 8},
+                {9, 10},
+                {11, 12}
+        };
+        int[][] resultMatrix = codeReuse.matrixMultiplication(matrixA, matrixB, 2, 3, 2);
+        System.out.println("Matrix Multiplication Result:");
+        codeReuse.printMatrix(resultMatrix);
+    }
+}
